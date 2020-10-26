@@ -1,31 +1,25 @@
-# 整体介绍
+@[TOC](文章目录结构)
 
+# 整体介绍
 ReentrantLock是JUC自带的一种可重入锁
 
 主要有两种锁形式
-
 - 公平锁
 - 非公平锁
 
 主要功能有两种
-
 - 加锁
 - 释放锁
 
 本质是AQS(同步等待队列)，一个带头结点和尾结点的双向链表
-
 当当前节点完成任务，会唤醒队列里面的下一个可唤醒节点
-
 新的任务到来会放到队列的最后面，等待唤醒
 
 # AQS介绍
-
 ## 属性
-
 AQS同步等待队列是一个带头尾节点地址的双向链表
 
 重要几个属性
-
 - state
 - Node
 - head
@@ -106,26 +100,8 @@ public ReentrantLock(boolean fair) {
 ```
 
 公平锁和非公平锁的类结构图
-
-<img src="https://gitee.com/tworan/typora-img/raw/master/imgs/image-20201025151721203.png" alt="image-20201025151721203" style="zoom:50%;" align="left" /><img src="https://gitee.com/tworan/typora-img/raw/master/imgs/image-20201025151949428.png" style="zoom:50%;" align="left" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![公平锁结构图](https://img-blog.csdnimg.cn/20201026230644953.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhcHB5X2Jsb2NraGVhZA==,size_16,color_FFFFFF,t_70#pic_center)
+![非公平锁](https://img-blog.csdnimg.cn/20201026230749732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhcHB5X2Jsb2NraGVhZA==,size_16,color_FFFFFF,t_70#pic_center)
 
 ## 非公平锁
 
