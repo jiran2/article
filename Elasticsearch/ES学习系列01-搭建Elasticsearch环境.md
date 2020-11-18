@@ -24,11 +24,12 @@ vm.max_map_count=262144
 
 Elasticsearch不能用root账号启动，会报错
 
-```
+```shell
 # 创建 ES 账号，如 elastic
 useradd elastic
 # 授权 ES 程序目录 elastic 账号权限
-# 假设 ES 程序目录、数据目录、日志目录都 在/gpes 目录下
+# 假设 ES 程序目录、数据目录、日志目录都 在/elk 目录下
+mkdir /usr/local/soft/elk
 chown -R elastic:elastic /usr/local/soft/elk/*
 ```
 
@@ -36,30 +37,42 @@ chown -R elastic:elastic /usr/local/soft/elk/*
 
 - JDK
 
-  ```
+  ```shell
   # 下载JDK
   cd /usr/local/soft
-  # 下载网址
+  # JDK下载地址
   https://www.oracle.com/java/technologies/javase-jdk15-downloads.html
+  # 解压下载包
   tar -zxvf jdk-15.0.1_linux-x64_bin.tar.gz
+  # 重命名
   mv jdk-15.0.1_linux-x64_bin jdk-15.0.1
   ```
 
 - Elasticsearch
 
-  ```
-  
+  ```shell
+  # 创建elk目录
+  cd /usr/local/soft/elk
+  # 下载Elasticsearch 如果速度很慢，可以使用迅雷下载上传到服务器
+  wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.0-linux-x86_64.tar.gz
+  # 解压下载包
+  tar -zxvf elasticsearch-7.10.0-linux-x86_64.tar.gz
   ```
 
 - Kibana
 
-  ```
-  
+  ```shell
+  # 进入elk目录
+  cd /usr/local/soft/elk
+  # 下载Kibana 如果速度很慢，可以使用迅雷下载上传到服务器
+  wget https://artifacts.elastic.co/downloads/kibana/kibana-7.10.0-linux-x86_64.tar.gz
+  # 解压下载包
+  tar -zxvf kibana-7.10.0-linux-x86_64.tar.gz
   ```
 
 ### 配置JDK14+
 
-```java
+```shell
 # 配置JDK属性
 vi /etc/profile
 # ES 最新版本自带 jdk 版本，默认可以不需要配置，建议配置，便于安装其它 java 程序辅助
@@ -121,9 +134,10 @@ export PATH=${JAVA_HOME}/bin:$PATH
 ```shell
 # 启动需要用创建的用户，不能用root用户
 su elastic
+
 # 当前窗口启动，窗口关闭，ES 进程也关闭
 .{ES_HOME}/bin/elasticsearch
-# 后台进程启动
+# 后台进程启动(推荐使用)
 .{ES_HOME}/bin/elasticsearch -d
 ```
 
@@ -149,9 +163,10 @@ su elastic
 ```shell
 # 启动需要用创建的用户，不能用root用户
 # su elastic
+
 # 当前窗口内启动
 .{KIBANA_HOME}/bin/kibana
-# 后台进程启动
+# 后台进程启动(推荐使用)
 nohup .{KIBANA_HOME}/bin/kibana &
 # 查看日志
 tail -fn 200 .{KIBANA_HOME}/bin/nohup.out
@@ -205,9 +220,10 @@ Elastic 集群模式必须至少 2 个实例以上，一般建议 3 个节点以
 ```
 # 启动需要用创建的用户，不能用root用户
 # su elastic
+
 # 当前窗口启动，窗口关闭，ES 进程也关闭
 .{ES_HOME}/bin/elasticsearch
-# 后台进程启动
+# 后台进程启动(推荐使用)
 .{ES_HOME}/bin/elasticsearch -d
 # 查看节点启动成功没
 http://192.168.222.100:9201/_cat/health
@@ -238,9 +254,10 @@ http://192.168.222.100:9201/_cat/health
 ```
 # 启动需要用创建的用户，不能用root用户
 # su elastic
+
 # 当前窗口内启动
 .{KIBANA_HOME}/bin/kibana
-# 后台进程启动
+# 后台进程启动(推荐使用)
 nohup .{KIBANA_HOME}/bin/kibana &
 # 查看日志
 tail -fn 200 .{KIBANA_HOME}/bin/nohup.out
