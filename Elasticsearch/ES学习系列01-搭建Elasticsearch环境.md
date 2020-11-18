@@ -32,9 +32,36 @@ useradd elastic
 chown -R elastic:elastic /usr/local/soft/elk/*
 ```
 
+### 下载软件
+
+- JDK
+
+  ```
+  # 下载JDK
+  cd /usr/local/soft
+  # 下载网址
+  https://www.oracle.com/java/technologies/javase-jdk15-downloads.html
+  tar -zxvf jdk-15.0.1_linux-x64_bin.tar.gz
+  mv jdk-15.0.1_linux-x64_bin jdk-15.0.1
+  ```
+
+- Elasticsearch
+
+  ```
+  
+  ```
+
+- Kibana
+
+  ```
+  
+  ```
+
 ### 配置JDK14+
 
 ```java
+# 配置JDK属性
+vi /etc/profile
 # ES 最新版本自带 jdk 版本，默认可以不需要配置，建议配置，便于安装其它 java 程序辅助
 export JAVA_HOME=/usr/local/soft/jdk-15.0.1
 export JRE_HOME=${JAVA_HOME}/jre  
@@ -92,6 +119,8 @@ export PATH=${JAVA_HOME}/bin:$PATH
 ### 启动方式
 
 ```shell
+# 启动需要用创建的用户，不能用root用户
+su elastic
 # 当前窗口启动，窗口关闭，ES 进程也关闭
 .{ES_HOME}/bin/elasticsearch
 # 后台进程启动
@@ -117,7 +146,9 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 ### 启动方式
 
-```
+```shell
+# 启动需要用创建的用户，不能用root用户
+# su elastic
 # 当前窗口内启动
 .{KIBANA_HOME}/bin/kibana
 # 后台进程启动
@@ -172,6 +203,8 @@ Elastic 集群模式必须至少 2 个实例以上，一般建议 3 个节点以
 ### 启动方式
 
 ```
+# 启动需要用创建的用户，不能用root用户
+# su elastic
 # 当前窗口启动，窗口关闭，ES 进程也关闭
 .{ES_HOME}/bin/elasticsearch
 # 后台进程启动
@@ -203,6 +236,8 @@ http://192.168.222.100:9201/_cat/health
 ### 启动方式
 
 ```
+# 启动需要用创建的用户，不能用root用户
+# su elastic
 # 当前窗口内启动
 .{KIBANA_HOME}/bin/kibana
 # 后台进程启动
