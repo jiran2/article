@@ -1,14 +1,20 @@
 # 配置Linux机器
 
-### 配置系统环境
+## 配置系统环境
+
+
 
 ```
-配置文件 /etc/sysctl.conf
+配置文件：/etc/sysctl.conf
+vi /etc/sysctl.conf
 # 禁用内存与硬盘交换
 vm.swappiness=1
 # 设置虚拟内存大小
 vm.max_map_count=262144
+
+
 配置文件：/etc/security/limits.conf
+vi /etc/security/limits.conf
 # 进程线程数
 * soft nproc 131072
 * hard nproc 131072
@@ -20,7 +26,7 @@ vm.max_map_count=262144
 * hard memlock unlimited
 ```
 
-### 创建ES专用账号
+## 创建ES专用账号
 
 Elasticsearch不能用root账号启动，会报错
 
@@ -33,7 +39,7 @@ mkdir /usr/local/soft/elk
 chown -R elastic:elastic /usr/local/soft/elk/*
 ```
 
-### 下载软件
+## 下载软件
 
 - JDK
 
@@ -51,7 +57,7 @@ chown -R elastic:elastic /usr/local/soft/elk/*
 - Elasticsearch
 
   ```shell
-  # 创建elk目录
+  # 进入elk目录
   cd /usr/local/soft/elk
   # 下载Elasticsearch 如果速度很慢，可以使用迅雷下载上传到服务器
   wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.0-linux-x86_64.tar.gz
@@ -70,7 +76,7 @@ chown -R elastic:elastic /usr/local/soft/elk/*
   tar -zxvf kibana-7.10.0-linux-x86_64.tar.gz
   ```
 
-### 配置JDK14+
+## 配置JDK14+
 
 ```shell
 # 配置JDK属性
@@ -80,6 +86,9 @@ export JAVA_HOME=/usr/local/soft/jdk-15.0.1
 export JRE_HOME=${JAVA_HOME}/jre  
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
 export PATH=${JAVA_HOME}/bin:$PATH
+
+#刷新配置
+source /etc/profile
 ```
 
 # 配置单点
@@ -89,6 +98,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 ### 配置文件
 
 - {ES_HOME}/config/elasticsearch.yml
+  vi /usr/local/soft/elk/elasticsearch-7.10.0/config/elasticsearch.yml
 
   ```
   # 集群名称，默认可以不修改，此处 es-single-9200
@@ -110,23 +120,24 @@ export PATH=${JAVA_HOME}/bin:$PATH
   action.destructive_requires_name: true
   # 设置处理器数量，默认无需设置，单机器多实例需要设置
   node.processors: 4
-  # 集群发现配置
-  # discovery.seed_hosts: ["192.168.222.100:9300"]
+  # 集群发现配置 设置自己机器的IP
   cluster.initial_master_nodes: ["192.168.222.100:9300"]
   ```
 
 - {ES_HOME}/config/jvm.options
-
+vi /usr/local/soft/elk/elasticsearch-7.10.0/config/jvm.options
+  
   ```
   # 内存堆栈大小，不能超过 1/2 系统内存，多实例要谨慎
   -Xms1g
   -Xmx1g
   # 垃圾回收器 CMS 与 G1，当前 CMS 依然最好
-  8-13:-XX:+UseConcMarkSweepGC
-  14-:-XX:+UseG1GC
+  # 根据当前Java版本设置
+  # 8-13:-XX:+UseConcMarkSweepGC
+  # 14-:-XX:+UseG1GC
+  -XX:+UseG1GC
   # GC.log 目录，便于排查 gc 问题，生产需要修改路径指向
   8:-Xloggc:logs/gc.log
-  #
   ```
 
 ### 启动方式
@@ -146,7 +157,8 @@ su elastic
 ### 配置文件
 
 - {KIBANA_HOME}/config/kibana.yml
-
+vi /usr/local/soft/elk/kibana-7.10.0-linux-x86_64/config/kibana.yml
+  
   ```shell
   # 访问端口，默认无需修改
   server.port: 5601
