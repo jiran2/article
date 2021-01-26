@@ -147,9 +147,9 @@ vi /usr/local/soft/elk/elasticsearch-7.10.0/config/jvm.options
 su elastic
 
 # 当前窗口启动，窗口关闭，ES 进程也关闭
-.{ES_HOME}/bin/elasticsearch
+/usr/local/soft/elk/es-single-9200/bin/elasticsearch
 # 后台进程启动(推荐使用)
-.{ES_HOME}/bin/elasticsearch -d
+/usr/local/soft/elk/es-single-9200/bin/elasticsearch -d
 ```
 
 ## Kibana配置
@@ -176,10 +176,11 @@ vi /usr/local/soft/elk/kibana-7.10.0-linux-x86_64/config/kibana.yml
 # 启动需要用创建的用户，不能用root用户
 # su elastic
 
+cd /usr/local/soft/elk/kibana-single-5601/bin/
 # 当前窗口内启动
-.{KIBANA_HOME}/bin/kibana
+./kibana
 # 后台进程启动(推荐使用)
-nohup .{KIBANA_HOME}/bin/kibana &
+nohup ./kibana &
 # 查看日志
 tail -fn 200 .{KIBANA_HOME}/bin/nohup.out
 # 地址
