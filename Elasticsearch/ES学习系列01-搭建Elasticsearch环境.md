@@ -344,7 +344,13 @@ http://192.168.222.100:9203/_cat/
 
    <img src="https://gitee.com/tworan/typora-img/raw/master/imgs/image-20210305232732140.png" alt="image-20210305232732140" style="zoom:50%;" align='left'/>
 
-2. 在elasticsearch head中输入集群某个节点地址
+2. 在chrome浏览器输入
+   
+   ```
+   chrome-extension://ffmkiejjmecolpfloofpjologoblkegm/elasticsearch-head/index.html
+   ```
+   
+3. 在`elasticsearch head`中输入集群某个节点地址
    <img src="https://gitee.com/tworan/typora-img/raw/master/imgs/image-20210305233016620.png" alt="image-20210305233016620" style="zoom:50%;" />
 
 
