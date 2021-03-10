@@ -2,17 +2,22 @@
 
 ## 配置系统环境
 
+### sysctl.conf
+
+vi /etc/sysctl.conf`
+
 ```
-配置文件：/etc/sysctl.conf
-vi /etc/sysctl.conf
 # 禁用内存与硬盘交换
 vm.swappiness=1
 # 设置虚拟内存大小
 vm.max_map_count=262144
+```
 
+### limits.conf
 
-配置文件：/etc/security/limits.conf
 vi /etc/security/limits.conf
+
+```
 # 进程线程数
 * soft nproc 131072
 * hard nproc 131072
@@ -108,7 +113,7 @@ mv kibana-7.11.1-linux-x86_64 kibana-single
 
 ### 配置文件
 
-- {ES_HOME}/config/elasticsearch.yml
+- elasticsearch.yml
   vi /usr/local/soft/elk/elasticsearch-single/config/elasticsearch.yml
 **注意：每个冒号后面需要有空格**
   
@@ -142,7 +147,7 @@ mv kibana-7.11.1-linux-x86_64 kibana-single
   #xpack.ml.enable: false
   ```
   
-- {ES_HOME}/config/jvm.options
+- jvm.options
 vi /usr/local/soft/elk/elasticsearch-single/config/jvm.options
   
   ```
@@ -174,7 +179,7 @@ su elastic
 
 ### 配置文件
 
-- {KIBANA_HOME}/config/kibana.yml
+- kibana.yml
 vi /usr/local/soft/elk/kibana-single/config/kibana.yml
   
   ```shell
@@ -232,6 +237,7 @@ mv elasticsearch-7.11.1 elasticsearch-cluster-9201
 
 ```
 # 解压下载包
+cd /usr/local/soft/elk
 tar -zxvf kibana-7.11.1-linux-x86_64.tar.gz
 mv kibana-7.11.1-linux-x86_64 kibana-cluster-9201
 ```
@@ -240,7 +246,7 @@ mv kibana-7.11.1-linux-x86_64 kibana-cluster-9201
 
 ### 配置文件
 
-- {ES_HOME}/config/elasticsearch.yml
+- elasticsearch.yml
 vi /usr/local/soft/elk/elasticsearch-cluster-9201/config/elasticsearch.yml
   
   ```shell
@@ -278,7 +284,7 @@ http://192.168.222.100:9201/_cat/health
 
 ### 配置文件
 
-- {KIBANA_HOME}/config/kibana.yml
+- kibana.yml
 vi /usr/local/soft/elk/kibana-cluster-9201/config/kibana.yml
   
   ```shell
@@ -338,7 +344,9 @@ http://192.168.222.100:9203/_cat/
 
 <img src="https://gitee.com/tworan/typora-img/raw/master/imgs/image-20201117235756750.png" alt="image-20201117235756750" style="zoom:100%;" align="left"/>
 
-## Elasticsearch Head配置
+# 插件配置
+
+## Elasticsearch Head
 
 1. 下载插件：chrome应用市场搜`elasticsearch head`
 
@@ -353,8 +361,20 @@ http://192.168.222.100:9203/_cat/
 3. 在`elasticsearch head`中输入集群某个节点地址
    <img src="https://gitee.com/tworan/typora-img/raw/master/imgs/image-20210305233016620.png" alt="image-20210305233016620" style="zoom:50%;" />
 
+## Elasticvue
 
+1. 地址：https://chrome.google.com/webstore/detail/elasticvue/hkedbapjpblbodpgbajblpnlpenaebaa?hl=zh-CN
+2. 效果展示（很美）
+   <img src="https://gitee.com/tworan/typora-img/raw/master/imgs/image-20210306132313965.png" alt="image-20210306132313965" style="zoom:50%;" />
 
 # 注意事项
 
-1. 科学翻墙 Ghelper插件：http://googlehelper.net/
+1. Ghelper插件：http://googlehelper.net/
+
+2. 集群重启可能有日志文件elastic用户没有权限，需要重新执行 
+
+   ```
+   chown -R elastic:elastic /usr/local/soft/elk/*
+   ```
+
+   给文件权限
