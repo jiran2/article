@@ -6,7 +6,7 @@
 
 ### 学校信息
 
-#### 2012.9 – 2016.07
+#### 2012.09 – 2016.07
 
 淮北师范大学 | 通信工程 | 本科
 
@@ -26,7 +26,7 @@
 
 安徽好马科技有限公司 | Java高级开发工程师
 
-工作描述：重构和优化项目、带领新人
+工作描述：调研技术，重构和优化项目，带领新人
 
 离职原因：公司欠薪几个月，经过协商沟通，主动离职
 
@@ -47,6 +47,7 @@
 * 研读过Spring、SpringAOP、MyBatis、HashMap、ConcurrentHashMap源码
 * 掌握锁、多线程并发编程
 * 掌握SpringBoot以及SpringCound微服务使用
+* 掌握Dubbo、Nacos、Zookeeper微服务使用
 * RocketMQ、Kafka、RabbitMQ熟练使用
 * Redis集群搭建、五大数据结构、布隆过滤器、HyperLogLog以及分布式锁
 * JVM 虚拟机性能优化、故障排查以及GC分析
